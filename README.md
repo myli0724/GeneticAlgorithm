@@ -26,4 +26,4 @@ Base on the requirement of this assignment,the max iter set to Gmax=2000, the gr
 the solution is:
 x1:11.602315538906392, x2:5.7270524323994385,fx:38.31359454972138
 
-## Parameter investigation
+## Parameter investigation:
