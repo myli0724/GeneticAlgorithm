@@ -88,7 +88,7 @@ def selectNewPopulation(chromosomes, cum_probability):
 
 
 # 新种群交叉
-def crossover(population, Pc=0.8):
+def crossover(population, Pc=0.7):
     """
     :param population: 新种群
     :param Pc: 交叉概率默认是0.8
@@ -125,7 +125,7 @@ def crossover(population, Pc=0.8):
 
 
 # 染色体变异
-def mutation(population, Pm=0.01):
+def mutation(population, Pm=0.07):
     """
     :param population: 经交叉后得到的种群
     :param Pm: 变异概率默认是0.01
