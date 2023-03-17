@@ -1,7 +1,3 @@
-# !/usr/bin/env python
-# -*- coding:utf-8 -*-
-# Author: wsw
-# 简单实现SGA算法
 import random
 import timeit
 
@@ -163,7 +159,7 @@ def fitnessFunction():
     pass
 
 
-def main(max_iter=500):
+def main(max_iter=2000):
     # 每次迭代得到的最优解
     optimalSolutions = []
     optimalValues = []
