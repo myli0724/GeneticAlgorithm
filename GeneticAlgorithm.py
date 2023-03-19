@@ -169,7 +169,7 @@ def main(max_iter=2000):
     lengthEncode = getEncodedLength(boundarylist=decisionVariables)
     for iteration in range(max_iter):
         # 得到初始种群编码
-        chromosomesEncoded = getIntialPopulation(lengthEncode, 10)
+        chromosomesEncoded = getIntialPopulation(lengthEncode, 100)
         # 种群解码
         decoded = decodedChromosome(lengthEncode, chromosomesEncoded, decisionVariables)
         # 得到个体适应度值和个体的累积概率

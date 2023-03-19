@@ -2,7 +2,6 @@ from matplotlib import pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-
 def myfunc(x, y):
     return 21.5 + x * np.sin(4 * np.pi * x) + y * np.sin(20 * np.pi * y)
 
@@ -22,4 +21,5 @@ ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
 ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='rainbow')
+fig.suptitle("3D function image",size = 20)
 plt.show()
