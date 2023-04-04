@@ -161,7 +161,7 @@ def fitnessFunction():
     pass
 
 
-def main(max_iter=500,Pc=0.7,Pm=0.07):
+def main(max_iter=200, Pc=0.7, Pm=0.07):
     # 每次迭代得到的最优解
     optimalSolutions = []
     optimalValues = []
@@ -171,7 +171,7 @@ def main(max_iter=500,Pc=0.7,Pm=0.07):
     lengthEncode = getEncodedLength(boundarylist=decisionVariables)
     for iteration in range(max_iter):
         # 得到初始种群编码
-        chromosomesEncoded = getIntialPopulation(lengthEncode,20)
+        chromosomesEncoded = getIntialPopulation(lengthEncode, 100)
         # 种群解码
         decoded = decodedChromosome(lengthEncode, chromosomesEncoded, decisionVariables)
         # 得到个体适应度值和个体的累积概率
@@ -179,9 +179,9 @@ def main(max_iter=500,Pc=0.7,Pm=0.07):
         # 选择新的种群
         newpopulations = selectNewPopulation(chromosomesEncoded, cum_proba)
         # 进行交叉操作
-        crossoverpopulation = crossover(newpopulations,Pc)
+        crossoverpopulation = crossover(newpopulations, Pc)
         # mutation
-        mutationpopulation = mutation(crossoverpopulation,Pm)
+        mutationpopulation = mutation(crossoverpopulation, Pm)
         # 将变异后的种群解码，得到每轮迭代最终的种群
         final_decoded = decodedChromosome(lengthEncode, mutationpopulation, decisionVariables)
         # 适应度评价
@@ -201,44 +201,43 @@ def test(PC=0.7, PM=0.07, times=30):
     values = []
     for itr in range(times):
         # print('\033c',end='')
-        _,value = main()
+        _, value = main(200, PC, PM)
         # print('PC=',PC,',PM=',PM,',loading:',itr,'/30',',value=',value)
         values.append(value)
     averageValue = np.average(values)
-    maxValue = np.max(value)    
-    return averageValue,maxValue
+    maxValue = np.max(value)
+    return averageValue, maxValue
 
 
 def ParameterInvestigation(PC=0.9, PM=0.09, times=30):
-    pc,pm = 0.1,0.01
+    pc, pm = 0.1, 0.01
     values = []
-    for pc in np.arange(0.1,1.0,0.1):
-        for pm in np.arange(0.01,0.10,0.01):
-            value, max = test(pc,pm,times)
+    for pc in np.arange(0.1, PC+0.1, 0.1):
+        for pm in np.arange(0.01, PM+0.01, 0.01):
+            value, maxvalue = test(pc, pm, times)
             values.append(value)
-            print('PC=',round(pc,2),',PM=',round(pm,2),'averagValue=',value)
+            print('PC=', round(pc, 2), ',PM=', round(pm, 2), 'averagValue=', value)
     return values
 
 
-#列名
-col=[]
-for i in np.arange(0.1,1.0,0.1):
-    col.append(round(i,2))
-#行名
-rows=[]
-for i in np.arange(0.01,0.10,0.01):
-    rows.append(round(i,2))
-cellvalues = np.array(ParameterInvestigation()).reshape(9,9)
+# 列名
+col = []
+for i in np.arange(0.1, 1.0, 0.1):
+    col.append(round(i, 2))
+# 行名
+rows = []
+for i in np.arange(0.01, 0.10, 0.01):
+    rows.append(round(i, 2))
+cellvalues = np.array(ParameterInvestigation()).reshape(9, 9)
 
-df = DataFrame(cellvalues,index=rows, columns=col)
-vals = np.around(df.values,6)
-norm = plt.Normalize(vals.min()-0.01, vals.max()+0.01)
+df = DataFrame(cellvalues, index=rows, columns=col)
+vals = np.around(df.values, 6)
+norm = plt.Normalize(vals.min() - 0.05, vals.max() + 0.05)
 colours = plt.cm.hot(norm(vals))
 
 fig = plt.figure()
-the_table=plt.table(cellText=vals, rowLabels=df.index, colLabels=df.columns, 
-                    colWidths = [0.1]*vals.shape[1], loc='center', 
-                    cellColours=colours)
+the_table = plt.table(cellText=vals, rowLabels=df.index, colLabels=df.columns,
+                      colWidths=[0.1] * vals.shape[1], loc='center',
+                      cellColours=colours)
 plt.axis('off')
 plt.show()
-

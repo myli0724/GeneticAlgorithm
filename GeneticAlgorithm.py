@@ -159,7 +159,7 @@ def fitnessFunction():
     pass
 
 
-def main(max_iter=2000):
+def main(max_iter=200):
     # 每次迭代得到的最优解
     optimalSolutions = []
     optimalValues = []
